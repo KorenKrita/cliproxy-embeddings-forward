@@ -38,6 +38,26 @@ Place the `.dylib` (macOS) / `.so` (Linux) / `.dll` (Windows) file in your CLIPr
 
 ## Configuration
 
+
+In the CPA management UI, each config field renders as a form input. Here's what you'll see and what to fill:
+
+| Field | Type | What to fill | Example |
+|---|---|---|---|
+| `upstream_base_url` | string | Embeddings upstream base URL | `https://api.openai.com/v1` |
+| `upstream_api_key` | string | Embeddings API key | `sk-xxx` |
+| `upstream_path` | string | Embeddings path (optional, default `/embeddings`) | `/embeddings` |
+| `upstream_models` | string | Embeddings models, comma-separated. `alias=name` or just `name`. Empty = accept any | `small=text-embedding-3-small, large` |
+| `rerank_base_url` | string | Rerank upstream base URL | `https://api.openai.com/v1` |
+| `rerank_api_key` | string | Rerank API key | `rk-xxx` |
+| `rerank_path` | string | Rerank path (optional, default `/rerank`) | `/rerank` |
+| `rerank_models` | string | Rerank models, comma-separated. `alias=name` or just `name`. Empty = accept any | `fast=rerank-8b, rerank-0.6b` |
+| `embeddings` | object | Advanced: multi-provider YAML. Paste module content (see below). Overrides flat fields | *(see example below)* |
+| `rerank` | object | Advanced: multi-provider YAML. Paste module content (see below). Overrides flat fields | *(see example below)* |
+
+**Common case**: just fill the flat string fields above. Leave `embeddings`/`rerank` object fields empty.
+
+**Advanced (multi-provider)**: leave flat fields empty, fill the `embeddings` or `rerank` object field with the module YAML content:
+
 ### Multi-provider (recommended)
 
 ```yaml
