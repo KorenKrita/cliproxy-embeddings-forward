@@ -79,6 +79,42 @@ plugins:
             # no models → catch-all: accepts any model, forwards as-is
 ```
 
+### What to fill in the `embeddings` / `rerank` object fields
+
+In the CPA management UI, the `embeddings` and `rerank` fields are `object` type — paste the **module content** (without the top-level key). For example, for `embeddings`:
+
+```yaml
+enabled: true
+providers:
+  - name: openai
+    base_url: "https://api.openai-compatible.example.com/v1"
+    api_keys: ["sk-key1", "sk-key2"]
+    models:
+      - name: "text-embedding-3-small"
+        alias: "emb-small"
+  - name: backup
+    base_url: "https://backup.example.com/v1"
+    api_keys: ["sk-backup"]
+    models:
+      - name: "text-embedding-3-small"
+```
+
+For `rerank`:
+
+```yaml
+enabled: true
+providers:
+  - name: primary
+    base_url: "https://api.openai-compatible.example.com/v1"
+    path: "/rerank"
+    api_keys: ["key1"]
+    models:
+      - name: "rerank-model-8b"
+        alias: "rerank-large"
+```
+
+Or skip the object fields entirely and use the flat fields (`upstream_base_url`, `rerank_base_url`, etc.) for single-provider setups.
+
 ### Flat single-provider (simple, UI-friendly)
 
 For the common case of one embeddings provider and/or one rerank provider, use flat fields — these map directly to CPA's config form:
